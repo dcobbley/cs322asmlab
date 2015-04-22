@@ -33,14 +33,33 @@ f:
 		movl	$0, %edx		#init edx register with zero for storing sum
 		movl	$0, %ecx		#init ecx for counter
 
-loop:		cmpl	$0,	(%rdi)		#check if empty
+loop:	movl 	(%rdi),%ebx
+		cmpl	$0,	%ebx		#check if empty
 		je		done
 
 		addl	(%rdi), %edx	#add current value to the sum total
+		addq	$4, %rdi
 		incl	%ecx			#increment counter
 		jmp		loop
 
 done:	movl %edx, %eax
+		cltd
 		idivl %ecx
 
 	ret
+
+
+	#jones code
+#		movl	$1, %ecx
+#		movl	(%rdi), %eax
+#loop:	addq	$4,%rdi
+#		movl	(%rdi, %edx
+#		cmpl	$0,%edx
+#		je		done
+#		addl	%edx, %eax
+#		incl	%ecx
+#		jmp		loop
+
+#done:
+#		cltd
+#		idivl %ecx
