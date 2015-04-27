@@ -6,8 +6,6 @@ f:
 
         movl    $42, %eax     # replace this with your code!
 
-#movq for 64 bit registers
-#movl for 32 bit
 ### This is where your code ends ...
 
 	ret

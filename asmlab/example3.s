@@ -3,29 +3,26 @@
 	.globl	f
 f:
 ### This is where your code begins ...
+# Return the position of the largest number from the array
 
-        #movl    $42, %eax     # replace this with your code!
+		movl	$0, %edx			#init current to 0
+		movl	$0, %eax			#init max to 0
+		movl 	$0, %esi			#init current counter
+		movl 	$0, %ecx			#init max counter
+loop:	movl	(%rdi), %edx		#put first value into current
+		cmpl	$0, %edx			#check if equal to zero
+		je		done				#je to done if true
+		cmpl	%eax, %edx			#check if current > max
+		jle		notgtloop			#jump to if true, set max = current
+	   	movl	%edx, %eax			#set max	
+		movl	%esi, %ecx			#set max counter
+				#either case itterate array element
+				#do loop again
 
-#put the first value of the array into a register
-		movl	(%rdi),%eax		#put value of rdi into eax
-		movl	$0, %ecx		#put zero in the counter
-#itterate
-loop:	
-		incl	%ecx			#increment counter 
-		addq	$4, %rdi		#move to next element
-		movl	(%rdi),%edx		#put the next element into temp edx
-		cmpl 	$0, %edx		#compare if edx is empty
-		je		done
-								#compare current with biggest value so far
-		cmpl	%edx,%eax		#compare new,origional
-								#if current is bigger, replace with register
-		jge		loop
-								#else loop again until end
-		movl	%edx, %eax
-		movl	%ecx, %ebx
-		jmp		loop	
-done:
-
-		movl	%ebx, %eax		#return the result
+notgtloop:	addq	$4, %rdi			
+			incl	%esi
+			jmp 	loop
+done:		movl 	%ecx, %eax
 ### This is where your code ends ...
+
 	ret
